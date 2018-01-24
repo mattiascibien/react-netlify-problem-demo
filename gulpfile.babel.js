@@ -3,8 +3,11 @@ import {spawn} from "child_process";
 import hugoBin from "hugo-bin";
 import flatten from "gulp-flatten";
 import postcss from "gulp-postcss";
-import cssImport from "postcss-import";
-import cssnext from "postcss-cssnext";
+//import cssImport from "postcss-import";
+//import cssnext from "postcss-cssnext";
+import autoprefixer from "autoprefixer";
+import sass from "gulp-sass";
+import cssNano from "gulp-cssnano";
 import BrowserSync from "browser-sync";
 import watch from "gulp-watch";
 import webpack from "webpack";
@@ -29,8 +32,14 @@ gulp.task("build-preview", ["css", "js", "fonts"], (cb) => buildSite(cb, hugoArg
 
 // Compile CSS with PostCSS
 gulp.task("css", () => (
-  gulp.src("./src/css/*.css")
-    .pipe(postcss([cssImport({from: "./src/css/main.css"}), cssnext()]))
+  gulp.src("./src/scss/*.scss")
+    .pipe(sass({
+      outputStyle:  "nested",
+      precision: 10,
+      includePaths: ["node_modules"],
+    }))
+    .pipe(postcss([ autoprefixer() ]))
+    .pipe(cssNano())
     .pipe(gulp.dest("./dist/css"))
     .pipe(browserSync.stream())
 ));
