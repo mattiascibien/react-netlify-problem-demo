@@ -1,7 +1,6 @@
 import gulp from "gulp";
 import {spawn} from "child_process";
 import hugoBin from "hugo-bin";
-import gutil from "gulp-util";
 import flatten from "gulp-flatten";
 import postcss from "gulp-postcss";
 import cssImport from "postcss-import";
@@ -10,6 +9,9 @@ import BrowserSync from "browser-sync";
 import watch from "gulp-watch";
 import webpack from "webpack";
 import webpackConfig from "./webpack.conf";
+import log from "fancy-log";
+import PluginError from "plugin-error";
+
 
 const browserSync = BrowserSync.create();
 
@@ -38,8 +40,8 @@ gulp.task("js", (cb) => {
   const myConfig = Object.assign({}, webpackConfig);
 
   webpack(myConfig, (err, stats) => {
-    if (err) throw new gutil.PluginError("webpack", err);
-    gutil.log("[webpack]", stats.toString({
+    if (err) throw new PluginError("webpack", err);
+    log("[webpack]", stats.toString({
       colors: true,
       progress: true
     }));
@@ -49,7 +51,7 @@ gulp.task("js", (cb) => {
 });
 
 // Move all fonts in a flattened directory
-gulp.task('fonts', () => (
+gulp.task("fonts", () => (
   gulp.src("./src/fonts/**/*")
     .pipe(flatten())
     .pipe(gulp.dest("./dist/fonts"))
@@ -63,10 +65,10 @@ gulp.task("server", ["hugo", "css", "js", "fonts"], () => {
       baseDir: "./dist"
     }
   });
-  watch("./src/js/**/*.js", () => { gulp.start(["js"]) });
-  watch("./src/css/**/*.css", () => { gulp.start(["css"]) });
-  watch("./src/fonts/**/*", () => { gulp.start(["fonts"]) });
-  watch("./site/**/*", () => { gulp.start(["hugo"]) });
+  watch("./src/js/**/*.js", () => { gulp.start(["js"]); });
+  watch("./src/css/**/*.css", () => { gulp.start(["css"]); });
+  watch("./src/fonts/**/*", () => { gulp.start(["fonts"]); });
+  watch("./site/**/*", () => { gulp.start(["hugo"]); });
 });
 
 /**
