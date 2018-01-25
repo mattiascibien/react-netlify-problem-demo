@@ -6,7 +6,7 @@
     }
   }
   
-  @media (min-width: 992px) {
+  @include media-breakpoint-up(lg) {
     #sideNav {
       text-align: center;
       position: fixed;
