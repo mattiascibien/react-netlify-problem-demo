@@ -1,15 +1,6 @@
-/*
-  You can use import statements to include partials:
- */
-@import "imports/reset";
+@import "variables";
+@import "global";
+@import "nav";
 
 @import "bootstrap/scss/bootstrap";
 
-/*
-  Or add your statements here:
- */
-body{
-  font-family: sans-serif;
-  font-size: 1em;
-  text-align: center;
-}
