@@ -1,5 +1,10 @@
 // Variables
 
+$font-family-sans-serif:  "Lato", sans-serif !default;
+$font-family-serif:       "Francois One", serif !default;
+
+$headings-font-family:    $font-family-serif !default;
+
 // Restate Bootstrap Variables
 $white:    #fff !default;
 $gray-100: #f8f9fa !default;
@@ -14,7 +19,7 @@ $gray-900: #212529 !default;
 $black:    #000 !default;
 
 $blue:    #007bff !default;
-$indigo:  #6610f2 !default;
+$indigo:  #1A237E !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
 $red:     #dc3545 !default;
