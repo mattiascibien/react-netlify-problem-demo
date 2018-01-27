@@ -1,9 +1,0 @@
-body {
-    padding-top: 54px;
-}
-@include media-breakpoint-up(lg) {
-    body {
-        padding-top: 0;
-        padding-left: $sidebar-base-width;
-    }
-}
