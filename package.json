@@ -1,6 +1,9 @@
 {
     "scripts": {
-        "build": "bundle exec jekyll build"
+        "bundler": "bundle install",
+        "jekyll": "bundle exec jekyll",
+        "build": "yarn bundler && yarn jekyll build",
+        "serve": "yarn jekyll serve --watch"
     },
     "devDependencies": {
         "webpack": "^3.10.0"
