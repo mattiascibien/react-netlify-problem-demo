@@ -1,6 +1,6 @@
 [build]
-  command = "jekyll build -s source"
+  command = "jekyll build -s src"
   publish = "_site"
 
 [context.deploy-preview]
-  command = "jekyll build -s source --drafts"
+  command = "jekyll build -s src --drafts"
