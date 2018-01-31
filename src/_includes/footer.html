@@ -1,0 +1,44 @@
+<footer>
+  <hr />
+  <div class="row">
+    <div class="col-md-6">
+      <p class="text-sm-center text-xs-center text-md-left text-lg-left">Copyright &copy; Mattias Cibien 2015 - All rights reserved</p>
+      <p class="text-sm-center text-xs-center text-md-left text-lg-left">
+      Made with <a href="http://jekyllrb.com/">Jekyll</a>, <a href="http://getbootstrap.com/">Bootstrap</a>, <a href="http://dimsemenov.com/plugins/magnific-popup/">Magnific Popup</a> and <a href="http://rack.github.io/">Rack</a>.
+      </p>
+    </div>
+    <div class="col-md-6">
+        <!--<ul class="list-inline">-->
+        <!--<li><a href="{{ site.social.twitter }}" data-toggle="tooltip" data-placement="top" title="Twitter"><i class="fa fa-twitter fa-2x"></i></a></li>        -->
+        <!--<li><a href="{{ site.social.facebook }}" data-toggle="tooltip" data-placement="top" title="Facebook"><i class="fa fa-facebook-square fa-2x"></i></a></li> -->
+        <!--<li><a href="{{ site.social.deviantart }}" data-toggle="tooltip" data-placement="top" title="Deviantart"><i class="fa fa-deviantart fa-2x"></i></a></li>-->
+        <!--<li><a href="{{ site.social.google }}" data-toggle="tooltip" data-placement="top" title="Google+"><i class="fa fa-google-plus fa-2x"></i></a></li>      -->
+        <!--</ul>-->
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <!-- Responsive Main Website -->
+        <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-9164254472564319"
+          data-ad-slot="8469515387"
+          data-ad-format="auto"></ins>
+        <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-12">
+      <ul class="list-inline text-center">
+        <li>-</li>
+        {% assign sorted_pages = site.pages | sort:"order" %}
+        {% for node in sorted_pages %}
+        {% if node.title %}
+        <li><a href="{{ node.url }}">{{ node.title }}</a></li>
+        <li>-</li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</footer>

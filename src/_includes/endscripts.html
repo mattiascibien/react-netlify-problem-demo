@@ -1,0 +1,157 @@
+{% bundle %} 
+ - /js/jquery.min.js
+ - /js/bootstrap.min.js
+ - /js/jquery.cookiesdirective.min.js
+ - /js/jquery.cloudinary.min.js
+ - /js/coinwidget.min.js
+ - /js/getDeviations.min.js
+ - /js/jquery.magnific-popup.min.js
+ - /js/js.cookie.min.js
+ - /js/jquery.stickytabs.min.js
+{% endbundle %}
+<script>$(document).ready(function() {
+    $.cookiesDirective({
+        privacyPolicyUri: 'privacy-policy/',
+        position: 'bottom',
+        explicitConsent: false
+    });
+    
+    $('.nav-pills').stickyTabs();
+    $('#rssIcon a').tooltip();
+    
+    $.cloudinary.responsive()
+});
+</script>
+{% if page.title == "Gallery" %}
+<script>
+
+if(Cookies.get("galleryTOSaccepted") == 1)
+{
+    $("#gallery-alert").hide();
+    $("#deviantART-gallery").show();
+}
+else
+{
+    $("#deviantART-gallery").hide();
+}
+
+function agree() {
+    Cookies.set("galleryTOSaccepted", 1, { expires: 14 });
+    $("#gallery-alert").hide(400);
+    $("#deviantART-gallery").show(400);
+}
+
+function disagree() {
+    Cookies.set("galleryTOSaccepted", 0);
+}
+
+$("#agree").click(agree);
+$("#disagree").click(disagree);
+
+getDeviations(window.location.protocol + '//backend.deviantart.com/rss.xml?q=gallery:mattiascibien/45941479', null, 0, 86400);
+
+function processDeviations(deviations) {
+    var gallery = $("#deviantART-gallery");
+    gallery.html("");
+    
+    
+    for(var i = 0, l = deviations.length; i < l; i++) {
+        var div = $('<div>').addClass("col-lg-3 col-md-4 col-xs-6");
+        var a = $('<a>').addClass("thumbnail");
+        var img = $('<img>');
+    
+        img.addClass('img-responsive');
+        a.attr('href', deviations[i].image);
+        a.attr('data-lightbox', '3d');
+        a.attr('title', deviations[i].title);
+        a.attr('data-title', deviations[i].title);
+        a.attr('data-deviantart-link', deviations[i].link)
+        img.attr('src', deviations[i].thumbL);
+        
+        a.append(img)
+        div.append(a);
+        gallery.append(div);
+    }
+    
+    $('.thumbnail').magnificPopup({
+        type:'image',
+        gallery:{
+            enabled:true
+        },
+        mainClass: 'mfp-with-zoom',
+        closeBtnInside: false,
+        closeMarkup: '<button title="%title%" class="mfp-close"><i class="fa fa-close"></i></button>',
+        image: {
+            verticalFit: true,
+    		titleSrc: function(item) {
+    			return item.el.attr('title') + ' &middot; <a class="btn btn-primary" href="'
+    			+item.el.attr('data-deviantart-link')
+    			+'" target="_blank"><i class="fa fa-deviantart"></i> Deviantart Link</a>'
+    			+ ' &middot; <a href="https://www.facebook.com/sharer/sharer.php?u=' + item.el.attr('data-deviantart-link') +'" title="Share on Facebook" target="_blank" class="btn btn-facebook" onclick="window.open(this.href\'facebook-share\', \'width=550,height=235\');return false;"><i class="fa fa-facebook"></i> Share on Facebook</a>';
+    			//+ ' &middot; <a href="http://twitter.com/share?text=' + $("<div>").text(item.el.attr('title')).html() + '&via=mattiascibien&related=mattiascibien&url='
+    			//+  item.el.attr('data-deviantart-link') +'" title="Share on Twitter" target="_blank" class="btn btn-twitter" onclick="window.open(this.href, \'twitter-share\', \'width=550,height=235\');return false;"><i class="fa fa-twitter"></i> Share on Twitter</a>';
+    		}
+        },
+        zoom: {
+			enabled: true,
+			duration: 300, // don't foget to change the duration also in CSS
+			opener: function(element) {
+				return element.find('img');
+			}
+		}
+    });
+}
+</script>
+{% endif %}
+{% if page.title == "Contact" %}
+<script>
+$('#contact-form').submit(function(){
+$.ajax({
+  dataType: 'jsonp',
+  url: window.location.protocol+"//getsimpleform.com/messages/ajax?form_api_token=b7eca16ab2b178d2407aeca50db360d2",
+  data: $('#contact-form').serialize() 
+}).done(function() {
+  //callback which can be used to show a thank you message
+  //and reset the form
+  $("#contact-form")[0].reset()
+  alert("Thank you, for contacting us");
+});
+return false; //to stop the form from submitting
+});
+</script>
+{% endif %}
+
+{% if page.title == "Blog" %}
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'mattiascibien';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+{% endif %}
+
+{% comment %}
+<script> 
+// Run after all the page elements have loaded
+window.onload = function(){ 
+// This will take care of asynchronous Google ads
+setTimeout(function() { 
+  // We are targeting the first banner ad of AdSense
+  var ad = document.querySelector("ins.adsbygoogle");
+  // If the ad contains no innerHTML, ad blockers are at work
+  if (ad && ad.innerHTML.replace(/\s/g, "").length == 0) {
+    // Since ad blocks hide ads using CSS too
+    ad.style.cssText = 'display:block !important; text-decoration: initial;'; 
+    // You can put any text, image or even IFRAME tags here
+    ad.innerHTML = '{% include adblock_text.html %}';
+  }
+}, 2000); // The ad blocker check is performed 2 seconds after the page load 
+}; 
+</script>
+{% endcomment %}

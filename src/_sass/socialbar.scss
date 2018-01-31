@@ -1,0 +1,59 @@
+.btn-twitter {
+  background: #00acee;
+  color: #fff;
+  &:link, &:visited {
+    color: #fff;
+  }
+  &:active, &:hover {
+    background: #0087bd;
+    color: #fff;
+  }
+}
+
+.btn-facebook {
+  background: #3b5998;
+  color: #fff;
+  &:link, &:visited {
+    color: #fff;
+  }
+  &:active, &:hover {
+    background: #30477a;
+    color: #fff;
+  }
+}
+
+.btn-googleplus {
+  background: #e93f2e;
+  color: #fff;
+  &:link, &:visited {
+    color: #fff;
+  }
+  &:active, &:hover {
+    background: #ba3225;
+    color: #fff;
+  }
+}
+
+.btn-stumbleupon {
+  background: #f74425;
+  color: #fff;
+  &:link, &:visited {
+    color: #fff;
+  }
+  &:active, &:hover {
+    background: #c7371e;
+    color: #fff;
+  }
+}
+
+.btn-linkedin {
+  background: #0e76a8;
+  color: #fff;
+  &:link, &:visited {
+    color: #fff;
+  }
+  &:active, &:hover {
+    background: #0b6087;
+    color: #fff;
+  }
+}

@@ -1,0 +1,87 @@
+---
+layout: container
+title: Projects
+order: 20
+icon: desktop
+permalink: /projects/
+group: navigation
+---
+
+{% assign major_projects = site.projects | where:"ismin",false %}
+{% assign minor_projects = site.projects | where:"ismin",true %}
+<ul class="nav nav-pills nav-stacked col-md-3">
+    {% for project in major_projects %}
+    <li {% if forloop.first %} class="active" {% endif %}><a href="#{{ project.id }}" data-toggle="pill"><strong>{{ project.title }}</strong><br/><small class="hidden-sm hidden-xs">{{ project.tagline }}</small></a></li>
+    {% endfor %}
+    <li><a href="#tab-minor" data-toggle="pill"><strong>Minor Contributions</strong></a></li>
+</ul>
+<div class="tab-content col-md-9">
+    {% for project in major_projects %}
+    <div class="tab-pane fade {% if forloop.first %} in active {% endif %}>" id="{{ project.id }}">
+        <div>
+                {% if project.details %}
+                <div class="pull-right">
+                    <div class="btn-toolbar" role="toolbar" aria-label="...">
+                      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                          {% if project.details.website %}
+                          <a class="btn btn-default" href="{{project.details.website}}"><i class="fa fa-globe"></i> Website</a>
+                          {% endif %}
+                          {% if project.details.github %}
+                          <a class="btn btn-default" href="{{project.details.github}}"><i class="fa fa-github"></i> Github</a>
+                          {% endif %}
+                      </div>
+                      {% if project.details.binaries %}
+                      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-download"></i> Download
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              {% if project.details.binaries.windows %}
+                              <li><a href="{{project.details.binaries.windows}}"><i class="fa fa-desktop"></i> Windows Dekstop</a></li>
+                              {% endif %}
+                              {% if project.details.binaries.mac %}
+                              <li><a href="{{project.details.binaries.mac}}"><i class="fa fa-apple"></i> MacOS</a></li>
+                              {% endif %}
+                              {% if project.details.binaries.linux %}
+                              <li><a href="{{project.details.binaries.linux}}"><i class="fa fa-linux"></i> Linux</a></li>
+                              {% endif %}
+                              {% if project.details.binaries.winstore %}
+                              <li><a href="{{project.details.binaries.winstore}}"><i class="fa fa-windows"></i> Windows Store</a></li>
+                              {% endif %}
+                            </ul>
+                      </div>
+                      {% endif %}
+                      
+                      {% if project.details.github %}
+                      <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-file-archive-o"></i> Source
+                              <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a href="{{project.details.github}}/zipball/master">Zip Archive</a></li>
+                              <li><a href="{{project.details.github}}/tarball/master">Tar Archive</a></li>
+                            </ul>
+                      </div>
+                      {% endif %}
+                    </div>
+                </div>
+                {% endif %}
+                <h2>{{ project.title }}</h2>
+        </div>
+        
+        {{ project.content }}
+        
+
+    </div>
+    {% endfor %}
+    <div class="tab-pane fade>" id="tab-minor">
+        {% for project in minor_projects %}
+        <h2>{{ project.title }}</h2>
+        {{ project.content }}
+        <hr/>
+        {% endfor %}
+        
+    </div>
+</div><!-- tab content -->
